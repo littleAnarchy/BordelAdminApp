@@ -1,30 +1,30 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading;
+using DbController;
 
 namespace AdminApp.ViewModels
 {
     public class MainViewModel : BasicViewModel
     {
-        private readonly Timer _timer;
-        private readonly Random _random = new Random();
-        private double _num = 5;
+        public ObservableCollection<Whore> Whores { get; set; } = new ObservableCollection<Whore>();
 
-        public double Num
-        {
-            get => _num;
-            set
-            {
-                if (_num == value) return;
-                _num = value;
-                DoPropertyChanged();
-            }
-        }
-           
+        private readonly SynchronizationContext _uiContext = SynchronizationContext.Current;
+        private readonly MsSqlContext _dbContext = new MsSqlContext();
 
         public MainViewModel()
         {
-            _timer = new Timer(o => { Num = _random.NextDouble(); }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1) );
+            Update();
+        }
+
+        public void Update()
+        {
+            _uiContext.Send(state => {
+                Whores.Clear();
+                foreach (var whore in _dbContext.GetWhores())
+                {
+                    Whores.Add(whore);
+                }
+            }, null);
         }
     }
 }

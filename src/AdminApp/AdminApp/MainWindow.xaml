@@ -10,7 +10,10 @@
         <viewmodels:MainViewModel/>
     </Window.DataContext>
     <Grid Name="MainGrid">
-        <Label Content="{Binding Num, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
-               VerticalAlignment="Center"/>
+        <DataGrid ItemsSource="{Binding Whores}">
+           <DataGrid.Columns>
+               <DataGridTextColumn Header="PimpName" Binding="{Binding Pimp.Name}"/>
+           </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
