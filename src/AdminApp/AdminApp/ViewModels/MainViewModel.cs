@@ -1,7 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using AdminApp.Common;
+using AdminApp.Controllers;
 using AdminApp.Models;
 using DbController;
+using ReactiveUI;
 
 namespace AdminApp.ViewModels
 {
@@ -13,12 +18,20 @@ namespace AdminApp.ViewModels
         private readonly SynchronizationContext _uiContext = SynchronizationContext.Current;
         private readonly MsSqlContext _dbContext = new MsSqlContext();
 
+        #region Commands
+
+        public CommandHandler OnAddWhoreBtnCmd { get; set; }
+
+        #endregion
+
         public MainViewModel()
         {
-            Update();
+            OnAddWhoreBtnCmd = new CommandHandler(OnAddWhoreBtn, true);
+
+            UpdateView();
         }
 
-        public void Update()
+        public void UpdateView()
         {
             _uiContext.Send(state => {
                 Whores.Clear();
@@ -31,8 +44,13 @@ namespace AdminApp.ViewModels
                 {
                     Pimps.Add(new PimpModel(pimp));
                 }
-
             }, null);
+        }
+
+        public void OnAddWhoreBtn()
+        {
+            var wnd = WindowsCreator.CreateWhoesAddingWindow();
+            wnd.Show();
         }
     }
 }

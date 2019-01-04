@@ -5,25 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:AdminApp.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="600" Width="1200">
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
     <Grid Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <GroupBox Header="Whores" Grid.Column="0">
-            <DataGrid ItemsSource="{Binding Whores}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="PimpName" Binding="{Binding Pimp.Name}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </GroupBox>
-        <GroupBox Header="Pimps" Grid.Column="1">
-            <DataGrid ItemsSource="{Binding Pimps}">
-            </DataGrid>
-        </GroupBox>
+        <TabControl>
+            <TabItem Header="Whores">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="Whores" Grid.Row="0">
+                        <DataGrid ItemsSource="{Binding Whores}" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                                <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                                <DataGridTextColumn Header="Directed by Pimp" Binding="{Binding Pimp.Name}"
+                                                    Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <Grid Name="ControlPanel" Row="1">
+                        <Button Content="Add Whore" Command="{Binding OnAddWhoreBtnCmd}" HorizontalAlignment="Right"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Pimps">
+                <GroupBox Header="Pimps">
+                    <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Directed Whores"
+                                                Binding="{Binding WhoreList}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

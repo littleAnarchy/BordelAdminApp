@@ -26,5 +26,14 @@ namespace DbController
                 return ctxt.Pimps.Include(p => p.Whores).ToList();
             }
         }
+
+        public void AddWhore(Whore whore)
+        {
+            using (var ctxt = GetContext())
+            {
+                ctxt.Whores.Add(whore);
+                ctxt.SaveChanges();
+            }
+        } 
     }
 }
