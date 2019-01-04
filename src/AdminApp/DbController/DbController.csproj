@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer.cs">
+      <DependentUpon>EfBordelContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="EfBordelContext.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,6 +69,9 @@
       <DependentUpon>EfBordelContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="MsSqlContext.cs" />
+    <Compile Include="Order.cs">
+      <DependentUpon>EfBordelContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pimp.cs">
       <DependentUpon>EfBordelContext.tt</DependentUpon>
     </Compile>

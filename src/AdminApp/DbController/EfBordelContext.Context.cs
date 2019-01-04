@@ -7,25 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DbController
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+public partial class BordelEntities : DbContext
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class BordelEntities : DbContext
+    public BordelEntities()
+        : base("name=BordelEntities")
     {
-        public BordelEntities()
-            : base("name=EfBordelEntities")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public virtual DbSet<Pimp> Pimps { get; set; }
-        public virtual DbSet<Whore> Whores { get; set; }
     }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        throw new UnintentionalCodeFirstException();
+    }
+
+    public virtual DbSet<Pimp> Pimps { get; set; }
+    public virtual DbSet<Whore> Whores { get; set; }
+    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Order> Orders { get; set; }
 }

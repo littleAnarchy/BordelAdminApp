@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading;
+using AdminApp.Models;
 using DbController;
 
 namespace AdminApp.ViewModels
@@ -7,6 +8,7 @@ namespace AdminApp.ViewModels
     public class MainViewModel : BasicViewModel
     {
         public ObservableCollection<Whore> Whores { get; set; } = new ObservableCollection<Whore>();
+        public ObservableCollection<PimpModel> Pimps { get; set; } = new ObservableCollection<PimpModel>();
 
         private readonly SynchronizationContext _uiContext = SynchronizationContext.Current;
         private readonly MsSqlContext _dbContext = new MsSqlContext();
@@ -24,6 +26,12 @@ namespace AdminApp.ViewModels
                 {
                     Whores.Add(whore);
                 }
+
+                foreach (var pimp in _dbContext.GetPimps())
+                {
+                    Pimps.Add(new PimpModel(pimp));
+                }
+
             }, null);
         }
     }

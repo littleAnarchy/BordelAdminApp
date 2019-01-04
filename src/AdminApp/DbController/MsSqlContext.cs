@@ -15,7 +15,15 @@ namespace DbController
         {
             using (var ctxt = GetContext())
             {
-                return ctxt.Whores.Include(w=>w.Pimp).ToList();
+                return ctxt.Whores.Include(w => w.Pimp).ToList();
+            }
+        }
+
+        public List<Pimp> GetPimps()
+        {
+            using (var ctxt = GetContext())
+            {
+                return ctxt.Pimps.Include(p => p.Whores).ToList();
             }
         }
     }
