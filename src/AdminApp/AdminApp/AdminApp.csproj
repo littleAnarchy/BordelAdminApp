@@ -42,6 +42,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="DynamicData, Version=6.7.1.2534, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.6.7.1.2534\lib\net46\DynamicData.dll</HintPath>
     </Reference>
@@ -182,6 +185,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{15FF4C7D-C387-4A66-8143-98BE37B67B68}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DbController\DbController.csproj">
       <Project>{7613081A-9F1F-45BF-94DE-9EC1DC7E2DF0}</Project>
       <Name>DbController</Name>

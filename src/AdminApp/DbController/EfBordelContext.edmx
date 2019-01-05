@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище EfBordelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище BordelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,6 +26,22 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" />
+          <Property Name="PaymentBonus" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Whore_Skill">
+          <Key>
+            <PropertyRef Name="WhoreId" />
+            <PropertyRef Name="SkillId" />
+          </Key>
+          <Property Name="WhoreId" Type="int" Nullable="false" />
+          <Property Name="SkillId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Whores">
           <Key>
@@ -61,6 +77,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Whore_Ski__Skill__0B91BA14">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="Whore_Skill" Type="Self.Whore_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Whore_Skill">
+              <PropertyRef Name="SkillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Whore_Ski__Whore__0A9D95DB">
+          <End Role="Whores" Type="Self.Whores" Multiplicity="1" />
+          <End Role="Whore_Skill" Type="Self.Whore_Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Whores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Whore_Skill">
+              <PropertyRef Name="WhoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Whores__PimpId__49C3F6B7">
           <End Role="Pimps" Type="Self.Pimps" Multiplicity="0..1" />
           <End Role="Whores" Type="Self.Whores" Multiplicity="*" />
@@ -73,10 +113,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище EfBordelModelContainer">
+        <EntityContainer Name="Хранилище BordelModelContainer">
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pimps" EntityType="Self.Pimps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Whore_Skill" EntityType="Self.Whore_Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Whores" EntityType="Self.Whores" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Orders__Customer__7E37BEF6" Association="Self.FK__Orders__Customer__7E37BEF6">
             <End Role="Customers" EntitySet="Customers" />
@@ -86,15 +128,42 @@
             <End Role="Whores" EntitySet="Whores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK__Whore_Ski__Skill__0B91BA14" Association="Self.FK__Whore_Ski__Skill__0B91BA14">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Whore_Skill" EntitySet="Whore_Skill" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Whore_Ski__Whore__0A9D95DB" Association="Self.FK__Whore_Ski__Whore__0A9D95DB">
+            <End Role="Whores" EntitySet="Whores" />
+            <End Role="Whore_Skill" EntitySet="Whore_Skill" />
+          </AssociationSet>
           <AssociationSet Name="FK__Whores__PimpId__49C3F6B7" Association="Self.FK__Whores__PimpId__49C3F6B7">
             <End Role="Pimps" EntitySet="Pimps" />
             <End Role="Whores" EntitySet="Whores" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="EfBordelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BordelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Customer__7E37BEF6" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="WhoreId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__7E37BEF6" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Whore" Relationship="Self.FK__Orders__WhoreId__7C4F7684" FromRole="Orders" ToRole="Whores" />
+        </EntityType>
         <EntityType Name="Pimp">
           <Key>
             <PropertyRef Name="Id" />
@@ -102,6 +171,15 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Whores" Relationship="Self.FK__Whores__PimpId__49C3F6B7" FromRole="Pimps" ToRole="Whores" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentBonus" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Whores" Relationship="Self.Whore_Skill" FromRole="Skills" ToRole="Whores" />
         </EntityType>
         <EntityType Name="Whore">
           <Key>
@@ -112,9 +190,34 @@
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Age" Type="Int32" />
           <Property Name="PimpId" Type="Int32" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__WhoreId__7C4F7684" FromRole="Whores" ToRole="Orders" />
           <NavigationProperty Name="Pimp" Relationship="Self.FK__Whores__PimpId__49C3F6B7" FromRole="Whores" ToRole="Pimps" />
-          <NavigationProperty Name="Orders" Relationship="EfBordelModel.FK__Orders__WhoreId__76969D2E" FromRole="Whore" ToRole="Order" />
+          <NavigationProperty Name="Skills" Relationship="Self.Whore_Skill" FromRole="Whores" ToRole="Skills" />
         </EntityType>
+        <Association Name="FK__Orders__Customer__7E37BEF6">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__WhoreId__7C4F7684">
+          <End Role="Whores" Type="Self.Whore" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Whores">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="WhoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Whores__PimpId__49C3F6B7">
           <End Role="Pimps" Type="Self.Pimp" Multiplicity="0..1" />
           <End Role="Whores" Type="Self.Whore" Multiplicity="*" />
@@ -127,82 +230,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="bordelEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="Whore_Skill">
+          <End Role="Skills" Type="Self.Skill" Multiplicity="*" />
+          <End Role="Whores" Type="Self.Whore" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Pimps" EntityType="Self.Pimp" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
           <EntitySet Name="Whores" EntityType="Self.Whore" />
+          <AssociationSet Name="FK__Orders__Customer__7E37BEF6" Association="Self.FK__Orders__Customer__7E37BEF6">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__WhoreId__7C4F7684" Association="Self.FK__Orders__WhoreId__7C4F7684">
+            <End Role="Whores" EntitySet="Whores" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK__Whores__PimpId__49C3F6B7" Association="Self.FK__Whores__PimpId__49C3F6B7">
             <End Role="Pimps" EntitySet="Pimps" />
             <End Role="Whores" EntitySet="Whores" />
           </AssociationSet>
-          <EntitySet Name="Customers" EntityType="EfBordelModel.Customer" />
-          <EntitySet Name="Orders" EntityType="EfBordelModel.Order" />
-          <AssociationSet Name="FK__Orders__Customer__75A278F5" Association="EfBordelModel.FK__Orders__Customer__75A278F5">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Orders__WhoreId__76969D2E" Association="EfBordelModel.FK__Orders__WhoreId__76969D2E">
-            <End Role="Whore" EntitySet="Whores" />
-            <End Role="Order" EntitySet="Orders" />
+          <AssociationSet Name="Whore_Skill" Association="Self.Whore_Skill">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="Whores" EntitySet="Whores" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="EfBordelModel.FK__Orders__Customer__75A278F5" FromRole="Customer" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" />
-          <Property Name="WhoreId" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="EfBordelModel.FK__Orders__Customer__75A278F5" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="Whore" Relationship="EfBordelModel.FK__Orders__WhoreId__76969D2E" FromRole="Order" ToRole="Whore" />
-        </EntityType>
-        <Association Name="FK__Orders__Customer__75A278F5">
-          <End Type="EfBordelModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="EfBordelModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Orders__WhoreId__76969D2E">
-          <End Type="EfBordelModel.Whore" Role="Whore" Multiplicity="0..1" />
-          <End Type="EfBordelModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Whore">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="WhoreId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище EfBordelModelContainer" CdmEntityContainer="bordelEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BordelModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BordelModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="BordelModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WhoreId" ColumnName="WhoreId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pimps">
-            <EntityTypeMapping TypeName="EfBordelModel.Pimp">
+            <EntityTypeMapping TypeName="BordelModel.Pimp">
               <MappingFragment StoreEntitySet="Pimps">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="BordelModel.Skill">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PaymentBonus" ColumnName="PaymentBonus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Whores">
-            <EntityTypeMapping TypeName="EfBordelModel.Whore">
+            <EntityTypeMapping TypeName="BordelModel.Whore">
               <MappingFragment StoreEntitySet="Whores">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -212,23 +308,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="EfBordelModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="EfBordelModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="WhoreId" ColumnName="WhoreId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="Whore_Skill" TypeName="BordelModel.Whore_Skill" StoreEntitySet="Whore_Skill">
+            <EndProperty Name="Skills">
+              <ScalarProperty Name="Id" ColumnName="SkillId" />
+            </EndProperty>
+            <EndProperty Name="Whores">
+              <ScalarProperty Name="Id" ColumnName="WhoreId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

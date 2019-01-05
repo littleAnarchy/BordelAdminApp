@@ -7,15 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class Order
+namespace DbController
 {
-    public int Id { get; set; }
-    public Nullable<int> CustomerId { get; set; }
-    public Nullable<int> WhoreId { get; set; }
-
-    public virtual Customer Customer { get; set; }
-    public virtual Whore Whore { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Order
+    {
+        public int Id { get; set; }
+        public Nullable<int> WhoreId { get; set; }
+        public Nullable<int> CustomerId { get; set; }
+    
+        public virtual Customer Customer { get; set; }
+        public virtual Whore Whore { get; set; }
+    }
 }

@@ -76,6 +76,9 @@
       <DependentUpon>EfBordelContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skill.cs">
+      <DependentUpon>EfBordelContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Whore.cs">
       <DependentUpon>EfBordelContext.tt</DependentUpon>
     </Compile>
@@ -105,6 +108,12 @@
       <DependentUpon>EfBordelContext.edmx</DependentUpon>
       <LastGenOutput>EfBordelContext.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{15FF4C7D-C387-4A66-8143-98BE37B67B68}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

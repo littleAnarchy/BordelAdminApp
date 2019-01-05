@@ -1,12 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading;
-using System.Windows;
-using System.Windows.Input;
 using AdminApp.Common;
 using AdminApp.Controllers;
 using AdminApp.Models;
 using DbController;
-using ReactiveUI;
 
 namespace AdminApp.ViewModels
 {

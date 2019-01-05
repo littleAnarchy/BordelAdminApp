@@ -1,50 +1,68 @@
-﻿<Window x:Class="AdminApp.MainWindow"
+﻿<mah:MetroWindow x:Class="AdminApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:AdminApp.ViewModels"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="1200">
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
-    <Grid Name="MainGrid">
-        <TabControl>
-            <TabItem Header="Whores">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <GroupBox Header="Whores" Grid.Row="0">
-                        <DataGrid ItemsSource="{Binding Whores}" AutoGenerateColumns="False">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Name="MainGrid">
+            <dragablz:TabablzControl 
+                ItemContainerStyle="{StaticResource TrapezoidDragableTabItemStyle}"
+                Margin="5">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+                <TabItem Header="Whores">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Whores" Grid.Row="0">
+                            <DataGrid ItemsSource="{Binding Whores}" AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+                                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
+                                    <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                                    <DataGridTextColumn Header="Directed by Pimp" Binding="{Binding Pimp.Name}"
+                                                    Width="*"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Pimps">
+                    <GroupBox Header="Pimps">
+                        <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                                <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
-                                <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
-                                <DataGridTextColumn Header="Directed by Pimp" Binding="{Binding Pimp.Name}"
-                                                    Width="*"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                                <DataGridTextColumn Header="Directed Whores"
+                                                Binding="{Binding WhoreList}" Width="*"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </GroupBox>
-                    <Grid Name="ControlPanel" Row="1">
-                        <Button Content="Add Whore" Command="{Binding OnAddWhoreBtnCmd}" HorizontalAlignment="Right"/>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Pimps">
-                <GroupBox Header="Pimps">
-                    <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                            <DataGridTextColumn Header="Directed Whores"
-                                                Binding="{Binding WhoreList}" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </GroupBox>
-            </TabItem>
-        </TabControl>
+                </TabItem>
+            </dragablz:TabablzControl>
+        </Grid>
+        <Grid Grid.Column="1">
+            <StackPanel Margin="0, 40" Name="ControlPanel">
+                <Button Content="Add Whore" 
+                        Command="{Binding OnAddWhoreBtnCmd}" 
+                        HorizontalAlignment="Right"/>
+            </StackPanel>
+        </Grid>
     </Grid>
-</Window>
+   
+</mah:MetroWindow>
