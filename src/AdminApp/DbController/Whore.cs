@@ -7,35 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using Common;
 
-namespace DbController
+public partial class Whore
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Whore
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+    public Whore()
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Whore()
-        {
-            this.Orders = new HashSet<Order>();
-            this.Skills = new HashSet<Skill>();
-        }
-    
-        public int Id { get; set; }
-        [DynamicExtractable]
-        public string FirstName { get; set; }
-        [DynamicExtractable]
-        public string LastName { get; set; }
-        [DynamicExtractable]
-        public Nullable<int> Age { get; set; }
-        public Nullable<int> PimpId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual Pimp Pimp { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Skill> Skills { get; set; }
+        this.Orders = new HashSet<Order>();
+        this.Skills = new HashSet<Skill>();
     }
+
+    public int Id { get; set; }
+    [DynamicExtractable]
+    public string FirstName { get; set; }
+    [DynamicExtractable]
+    public string LastName { get; set; }
+    [DynamicExtractable]
+    public Nullable<int> Age { get; set; }
+    public Nullable<int> PimpId { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<Order> Orders { get; set; }
+    public virtual Pimp Pimp { get; set; }
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    public virtual ICollection<Skill> Skills { get; set; }
 }

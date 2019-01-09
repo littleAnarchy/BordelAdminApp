@@ -7,7 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1200">
+        Title="Public house" Height="600" Width="1200">
     <Window.DataContext>
         <viewmodels:MainViewModel/>
     </Window.DataContext>
@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Name="MainGrid">
             <dragablz:TabablzControl 
-                ItemContainerStyle="{StaticResource TrapezoidDragableTabItemStyle}"
+                ItemContainerStyle="{StaticResource TabItemStyle}"
                 Margin="5">
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController/>

@@ -1,4 +1,5 @@
 ﻿using AdminApp.ViewModels;
+using AdminApp.Windows;
 
 namespace AdminApp
 {
@@ -8,8 +9,9 @@ namespace AdminApp
     public partial class MainWindow
     {
         public MainWindow()
-        {
+        {  
             InitializeComponent();
+            BasicWindowCreator.UpdateMetroWindow(this);
             MainGrid.DataContext = new MainViewModel();
         }
     }

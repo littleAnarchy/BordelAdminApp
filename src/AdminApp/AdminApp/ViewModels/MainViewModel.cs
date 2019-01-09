@@ -47,7 +47,12 @@ namespace AdminApp.ViewModels
         public void OnAddWhoreBtn()
         {
             var wnd = WindowsCreator.CreateWhoesAddingWindow();
-            wnd.Show();
+
+            if (wnd.ShowDialog() == true)
+            {
+                _dbContext.AddWhore((Whore)wnd.Entity);
+                UpdateView();
+            }
         }
     }
 }
