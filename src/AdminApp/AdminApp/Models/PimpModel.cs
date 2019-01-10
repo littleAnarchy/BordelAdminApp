@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using DbController;
+﻿using System.Linq;
 
 namespace AdminApp.Models
 {
-    public class PimpModel
+    public sealed class PimpModel : Pimp
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<Whore> Whores { get; set; }
+
         public string WhoreList { get; set; }
 
         public PimpModel(Pimp entity)
@@ -22,6 +17,13 @@ namespace AdminApp.Models
             {
                 WhoreList += $"{whore.FirstName} {whore.LastName}\n";
             }
+        }
+
+        public PimpModel() { }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

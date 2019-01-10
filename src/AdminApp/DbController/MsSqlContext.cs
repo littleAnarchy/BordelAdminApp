@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DbController
 {
@@ -34,6 +38,16 @@ namespace DbController
                 ctxt.Whores.Add(whore);
                 ctxt.SaveChanges();
             }
-        } 
+        }
+
+        //getting table by reflection
+        public List<object> GetListValuesByType(Type type)
+        {
+            
+            using (var ctxt = GetContext())
+            {
+                return ctxt.Database.SqlQuery(type, "SELECT * FROM " + type.BaseType?.Name + "s").ToListAsync().Result;
+            }
+        }
     }
 }

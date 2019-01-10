@@ -31,6 +31,7 @@ public partial class Whore
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<Order> Orders { get; set; }
+    [DynamicExtractable]
     public virtual Pimp Pimp { get; set; }
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     public virtual ICollection<Skill> Skills { get; set; }

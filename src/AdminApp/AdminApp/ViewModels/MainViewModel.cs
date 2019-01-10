@@ -14,6 +14,7 @@ namespace AdminApp.ViewModels
 
         private readonly SynchronizationContext _uiContext = SynchronizationContext.Current;
         private readonly MsSqlContext _dbContext = new MsSqlContext();
+        private readonly WindowsCreator _windowsCreator;
 
         #region Commands
 
@@ -23,6 +24,8 @@ namespace AdminApp.ViewModels
 
         public MainViewModel()
         {
+            _windowsCreator = new WindowsCreator(_dbContext);
+
             OnAddWhoreBtnCmd = new CommandHandler(OnAddWhoreBtn, true);
 
             UpdateView();
@@ -46,7 +49,7 @@ namespace AdminApp.ViewModels
 
         public void OnAddWhoreBtn()
         {
-            var wnd = WindowsCreator.CreateWhoesAddingWindow();
+            var wnd = _windowsCreator.CreateAddingWindow<Whore>();
 
             if (wnd.ShowDialog() == true)
             {
