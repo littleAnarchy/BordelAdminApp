@@ -160,8 +160,11 @@
     <Compile Include="Models\IIdentable.cs" />
     <Compile Include="Models\PimpModel.cs" />
     <Compile Include="Models\WhoreModel.cs" />
+    <Compile Include="ViewModels\Reflection\AddingReflectionVM.cs" />
+    <Compile Include="ViewModels\Reflection\BasicReflectionViewModel.cs" />
     <Compile Include="ViewModels\BasicViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\Reflection\ChangingReflectionVM.cs" />
     <Compile Include="Windows\BasicWindow.xaml.cs">
       <DependentUpon>BasicWindow.xaml</DependentUpon>
     </Compile>

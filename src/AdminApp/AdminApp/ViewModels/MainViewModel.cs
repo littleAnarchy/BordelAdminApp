@@ -60,7 +60,7 @@ namespace AdminApp.ViewModels
 
             if (wnd.ShowDialog() == true)
             {
-                _dbContext.AddWhore((Whore)wnd.Entity);
+                _dbContext.AddWhore((Whore)wnd.GetEntity());
                 UpdateView();
             }
         }
@@ -84,7 +84,7 @@ namespace AdminApp.ViewModels
 
             if (wnd.ShowDialog() == true)
             {
-                _dbContext.AddWhore((Whore)wnd.Entity);
+                _dbContext.AddWhore((Whore)wnd.GetEntity());
                 UpdateView();
             }
         }

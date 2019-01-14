@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 using AdminApp.Models;
+using AdminApp.ViewModels.Reflection;
 using AdminApp.Windows;
 using Common;
 using DbController;
@@ -21,7 +22,8 @@ namespace AdminApp.Controllers
         {
             var properties = typeof(T).GetProperties()
                 .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
-            var wnd = new BasicWindow(typeof(T));
+            var vm = new AddingReflectionVM(typeof(T));
+            var wnd = new BasicWindow(vm);
             var view = wnd.FormsPanel;
             foreach (var property in properties)
             {
@@ -43,7 +45,8 @@ namespace AdminApp.Controllers
         {
             var properties = typeof(T).GetProperties()
                 .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
-            var wnd = new BasicWindow(typeof(T));
+            var vm = new AddingReflectionVM(typeof(T));
+            var wnd = new BasicWindow(vm);
             var view = wnd.FormsPanel;
             foreach (var property in properties)
             {

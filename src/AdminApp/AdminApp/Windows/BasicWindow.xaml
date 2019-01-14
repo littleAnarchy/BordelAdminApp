@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:viewModels="clr-namespace:AdminApp.ViewModels.Reflection"
                  mc:Ignorable="d"
         Title="BasicWindow" SizeToContent="Height" Width="400">
+    <Window.DataContext>
+        <viewModels:BasicReflectionViewModel/>
+    </Window.DataContext>
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -13,8 +17,8 @@
         </Grid.RowDefinitions>
         <StackPanel Name="FormsPanel" Grid.Row="0"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="Cancel" Click="OnCancelClick"/>
-            <Button Content="Add" Click="OnAddClick"/>
+            <Button Content="Cancel" Command="{Binding CancelBtnCmd}"/>
+            <Button Content="Add" Command="{Binding Btn2Cmd}"/>
         </StackPanel>
     </Grid>
 </mah:MetroWindow>
