@@ -6,20 +6,21 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using AdminApp.Common;
+using AdminApp.Models;
 using Common;
 
 namespace AdminApp.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для BasicAddingWindow.xaml
+    /// Логика взаимодействия для BasicWindow.xaml
     /// </summary>
-    public partial class BasicAddingWindow
+    public partial class BasicWindow
     {
         private readonly Type _entityType;
 
         public object Entity { get; private set; }
 
-        public BasicAddingWindow(Type entityType)
+        public BasicWindow(Type entityType)
         {
             _entityType = entityType;
 
@@ -35,7 +36,8 @@ namespace AdminApp.Windows
 
             var writedForms = new Dictionary<string, object>();
 
-            foreach (var tb in VisualFinder.FindVisualChildren<TextBox>(this))
+            //Adding content from text boxes
+            foreach (var tb in VisualFinder.FindVisualChildren<TextBox>(this).Where(t => t.Name != null))
             {
                 var oProp = Entity.GetType().GetProperty(tb.Name);
                 if (oProp == null) continue;
@@ -50,6 +52,16 @@ namespace AdminApp.Windows
                 writedForms.Add(tb.Name, Convert.ChangeType(tb.Text, tProp));
             }
 
+            //Adding content from Combo boxes
+            foreach (var tb in VisualFinder.FindVisualChildren<ComboBox>(this).Where(t => t.Name != null))
+            {
+                var oProp = Entity.GetType().GetProperty(tb.Name);
+                if (oProp == null) continue;
+                
+                writedForms.Add(tb.Name, ((IEntityKeepable)tb.SelectedItem).Entity);
+            }
+
+            //Form object with grabbed parameters
             foreach (var property in properties)
             {
                 Entity.GetType().InvokeMember(property.Name,

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace DbController
 {
@@ -35,6 +32,8 @@ namespace DbController
         {
             using (var ctxt = GetContext())
             {
+                if (whore.Pimp != null) whore.PimpId = whore.Pimp.Id;
+                whore.Pimp = null; //TODO: create best resolve of this problem
                 ctxt.Whores.Add(whore);
                 ctxt.SaveChanges();
             }

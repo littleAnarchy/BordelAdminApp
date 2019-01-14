@@ -1,12 +1,11 @@
-﻿<mah:MetroWindow x:Class="AdminApp.Windows.BasicAddingWindow"
+﻿<mah:MetroWindow x:Class="AdminApp.Windows.BasicWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:viewModels="clr-namespace:AdminApp.ViewModels"
                  mc:Ignorable="d"
-        Title="BasicAddingWindow" SizeToContent="Height" Width="400">
+        Title="BasicWindow" SizeToContent="Height" Width="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition/>

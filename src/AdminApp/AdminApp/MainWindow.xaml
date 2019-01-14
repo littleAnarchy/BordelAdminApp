@@ -17,9 +17,15 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Name="MainGrid">
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Change Item" Command="{Binding OnChangeItemCmd}"/>
+                    <MenuItem Header="Item 2"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
             <dragablz:TabablzControl 
                 ItemContainerStyle="{StaticResource TabItemStyle}"
-                Margin="5">
+                Margin="5" Background="DarkSlateGray">
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController/>
                 </dragablz:TabablzControl.InterTabController>
@@ -30,7 +36,9 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <GroupBox Header="Whores" Grid.Row="0">
-                            <DataGrid ItemsSource="{Binding Whores}" AutoGenerateColumns="False">
+                            <DataGrid ItemsSource="{Binding Whores, UpdateSourceTrigger=PropertyChanged}" 
+                                      AutoGenerateColumns="False" SelectedItem="{Binding SelectedObj}"
+                                      IsReadOnly="True">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                     <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
@@ -44,7 +52,8 @@
                 </TabItem>
                 <TabItem Header="Pimps">
                     <GroupBox Header="Pimps">
-                        <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False">
+                        <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False"
+                                  IsReadOnly="True" SelectedItem="{Binding SelectedObj}">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>

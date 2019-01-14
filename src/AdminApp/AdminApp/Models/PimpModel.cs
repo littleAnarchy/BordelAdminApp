@@ -2,13 +2,15 @@
 
 namespace AdminApp.Models
 {
-    public sealed class PimpModel : Pimp
+    public sealed class PimpModel : Pimp, IEntityKeepable, IIdentable
     {
-
+        public object Entity { get; set; }
         public string WhoreList { get; set; }
 
         public PimpModel(Pimp entity)
         {
+            Entity = entity;
+
             Id = entity.Id;
             Name = entity.Name;
             Whores = entity.Whores.ToList();
@@ -19,7 +21,10 @@ namespace AdminApp.Models
             }
         }
 
-        public PimpModel() { }
+        public PimpModel()
+        {
+            Entity = this;
+        }
 
         public override string ToString()
         {
