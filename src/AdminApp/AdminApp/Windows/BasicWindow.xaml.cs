@@ -1,4 +1,6 @@
-﻿using AdminApp.ViewModels.Reflection;
+﻿using System.Windows.Controls;
+using AdminApp.Controls;
+using AdminApp.ViewModels.Reflection;
 
 namespace AdminApp.Windows
 {
@@ -9,11 +11,14 @@ namespace AdminApp.Windows
     {
         private readonly BasicReflectionViewModel _vm;
 
+        public StackPanel FormsPanel { get; }
+
         public BasicWindow(BasicReflectionViewModel vm)
         {
             _vm = vm;
-            DataContext = vm;
-            vm.Initialize(this);
+            var control = new BasicInstanceControl(vm, this);
+            FormsPanel = control.FormsPanel;
+            DefaultControl.DataContext = control;
             InitializeComponent();
             BasicWindowCreator.UpdateMetroWindow(this);
         }

@@ -1,6 +1,8 @@
-﻿namespace AdminApp.Models
+﻿using DbController;
+
+namespace AdminApp.Models
 {
-    public class WhoreModel : Whore, IEntityKeepable, IIdentable
+    public class WhoreModel : Whore, IEntityKeepable
     {
         public object Entity { get; set; }
 
@@ -18,11 +20,6 @@
         public WhoreModel()
         {
             Entity = this;
-        }
-
-        public override string ToString()
-        {
-            return FirstName + " " + LastName;
         }
     }
 }

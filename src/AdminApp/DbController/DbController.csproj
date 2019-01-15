@@ -51,46 +51,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Customer.cs">
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="EfBordelContext.Context.cs">
+    <Compile Include="EfBordelEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EfBordelContext.Context.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EfBordelContext.cs">
+    <Compile Include="EfBordelEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="EfBordelContext.Designer.cs">
+    <Compile Include="EfBordelEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EfBordelContext.edmx</DependentUpon>
+      <DependentUpon>EfBordelEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ModelPartials.cs" />
     <Compile Include="MsSqlContext.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Pimp.cs">
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skill.cs">
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Whore.cs">
-      <DependentUpon>EfBordelContext.tt</DependentUpon>
+      <DependentUpon>EfBordelEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="EfBordelContext.edmx">
+    <EntityDeploy Include="EfBordelEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EfBordelContext.Designer.cs</LastGenOutput>
+      <LastGenOutput>EfBordelEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EfBordelContext.edmx.diagram">
-      <DependentUpon>EfBordelContext.edmx</DependentUpon>
+    <None Include="EfBordelEntities.edmx.diagram">
+      <DependentUpon>EfBordelEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -98,22 +99,22 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EfBordelContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EfBordelContext.edmx</DependentUpon>
-      <LastGenOutput>EfBordelContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="EfBordelContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EfBordelContext.edmx</DependentUpon>
-      <LastGenOutput>EfBordelContext.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{15FF4C7D-C387-4A66-8143-98BE37B67B68}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EfBordelEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EfBordelEntities.edmx</DependentUpon>
+      <LastGenOutput>EfBordelEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EfBordelEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EfBordelEntities.edmx</DependentUpon>
+      <LastGenOutput>EfBordelEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

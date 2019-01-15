@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:AdminApp.ViewModels"
+        xmlns:conrols="clr-namespace:AdminApp.Controls"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"
@@ -38,11 +39,13 @@
                         <GroupBox Header="Whores" Grid.Row="0">
                             <DataGrid ItemsSource="{Binding Whores, UpdateSourceTrigger=PropertyChanged}" 
                                       AutoGenerateColumns="False" SelectedItem="{Binding SelectedObj}"
-                                      IsReadOnly="True">
+                                      IsReadOnly="True"
+                                      SelectionChanged="Selector_OnSelected">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                     <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}"/>
                                     <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                                    <DataGridTextColumn Header="PricePerHour" Binding="{Binding PricePerHour}"/>
                                     <DataGridTextColumn Header="Directed by Pimp" Binding="{Binding Pimp.Name}"
                                                     Width="*"/>
                                 </DataGrid.Columns>
@@ -53,7 +56,8 @@
                 <TabItem Header="Pimps">
                     <GroupBox Header="Pimps">
                         <DataGrid ItemsSource="{Binding Pimps}" AutoGenerateColumns="False"
-                                  IsReadOnly="True" SelectedItem="{Binding SelectedObj}">
+                                  IsReadOnly="True" SelectedItem="{Binding SelectedObj}"
+                                  SelectionChanged="Selector_OnSelected">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
                                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -65,13 +69,16 @@
                 </TabItem>
             </dragablz:TabablzControl>
         </Grid>
+        <GridSplitter Grid.Column="0" Width="5"/>
         <Grid Grid.Column="1">
             <StackPanel Margin="0, 40" Name="ControlPanel">
                 <Button Content="Add Whore" 
                         Command="{Binding OnAddWhoreBtnCmd}" 
                         HorizontalAlignment="Right"/>
+                <conrols:BasicInstanceControl x:Name="InstanceControl"/>
             </StackPanel>
         </Grid>
     </Grid>
    
 </mah:MetroWindow>
+
