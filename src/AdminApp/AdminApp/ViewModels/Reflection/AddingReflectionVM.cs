@@ -18,7 +18,7 @@ namespace AdminApp.ViewModels.Reflection
         {
             Btn2Cmd = new CommandHandler(OnAddClick, true);
         }
-
+       
         public void OnAddClick()
         {
             Entity = Activator.CreateInstance(EntityType);

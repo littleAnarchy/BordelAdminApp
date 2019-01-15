@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:reflection="clr-namespace:AdminApp.ViewModels.Reflection"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <reflection:BasicReflectionViewModel/>
-    </UserControl.DataContext>
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -17,7 +14,7 @@
         <StackPanel Name="FormsPanel" Grid.Row="0"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Cancel" Command="{Binding CancelBtnCmd}"/>
-            <Button Content="Add" Command="{Binding Btn2Cmd}"/>
+            <Button Name="Btn2" Click="Btn2_OnClick"/>
         </StackPanel>
     </Grid>
 </UserControl>
