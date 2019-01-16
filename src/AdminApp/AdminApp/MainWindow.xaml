@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:AdminApp.ViewModels"
-        xmlns:conrols="clr-namespace:AdminApp.Controls"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
+        xmlns:controls1="clr-namespace:WPFRelectionControls.Controls;assembly=WPFRelectionControls"
         mc:Ignorable="d"
         Title="Public house" Height="600" Width="1200">
     <Window.DataContext>
@@ -75,7 +75,7 @@
                 <Button Content="Add Whore" 
                         Command="{Binding OnAddWhoreBtnCmd}" 
                         HorizontalAlignment="Right"/>
-                <conrols:BasicInstanceControl Btn2Content="Change" x:Name="InstanceControl"/>
+                <controls1:BasicInstanceControl Btn2Content="Change" x:Name="InstanceControl"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -1,4 +1,4 @@
-﻿namespace AdminApp.Models
+﻿namespace WPFRelectionControls.Interfaces
 {
     public interface IEntityKeepable
     {

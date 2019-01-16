@@ -1,4 +1,4 @@
-﻿namespace Common.Interfaces
+﻿namespace WPFRelectionControls.Interfaces
 {
     public interface IIdentable
     {

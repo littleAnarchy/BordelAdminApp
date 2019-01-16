@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Common.Interfaces;
 using DbController;
+using WPFRelectionControls.Interfaces;
 
 namespace AdminApp.Models
 {

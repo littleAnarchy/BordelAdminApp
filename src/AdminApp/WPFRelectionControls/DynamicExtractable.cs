@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common
+namespace WPFRelectionControls
 {
     public class DynamicExtractable : Attribute
     {

@@ -4,11 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Controls;
-using AdminApp.Common;
-using AdminApp.Models;
-using Common;
+using WPFRelectionControls.Common;
+using WPFRelectionControls.Interfaces;
 
-namespace AdminApp.ViewModels.Reflection
+namespace WPFRelectionControls.Reflection
 {
     // ReSharper disable once InconsistentNaming
     public class AddingReflectionVM : BasicReflectionViewModel
@@ -23,12 +22,12 @@ namespace AdminApp.ViewModels.Reflection
         {
             Entity = Activator.CreateInstance(EntityType);
             var properties = Entity.GetType().GetProperties()
-                .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
+                .Where(prop => Attribute.IsDefined((MemberInfo) prop, typeof(DynamicExtractable)));
 
             var writedForms = new Dictionary<string, object>();
 
             //Adding content from text boxes
-            foreach (var tb in VisualFinder.FindVisualChildren<TextBox>(Owner).Where(t => t.Name != null))
+            foreach (var tb in Enumerable.Where<TextBox>(VisualFinder.FindVisualChildren<TextBox>(Owner), t => t.Name != null))
             {
                 var oProp = Entity.GetType().GetProperty(tb.Name);
                 if (oProp == null) continue;
@@ -44,7 +43,7 @@ namespace AdminApp.ViewModels.Reflection
             }
 
             //Adding content from Combo boxes
-            foreach (var tb in VisualFinder.FindVisualChildren<ComboBox>(Owner).Where(t => t.Name != null))
+            foreach (var tb in Enumerable.Where<ComboBox>(VisualFinder.FindVisualChildren<ComboBox>(Owner), t => t.Name != null))
             {
                 var oProp = Entity.GetType().GetProperty(tb.Name);
                 if (oProp == null) continue;

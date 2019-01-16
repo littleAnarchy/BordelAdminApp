@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Common;
+using WPFRelectionControls;
 
 namespace DbController
 {

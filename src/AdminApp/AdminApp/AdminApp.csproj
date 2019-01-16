@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>AdminApp</RootNamespace>
     <AssemblyName>AdminApp</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -154,19 +154,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\CommandHandler.cs" />
-    <Compile Include="Common\VisualFinder.cs" />
     <Compile Include="Controllers\WindowsCreator.cs" />
-    <Compile Include="Models\IEntityKeepable.cs" />
     <Compile Include="Models\PimpModel.cs" />
     <Compile Include="Models\WhoreModel.cs" />
-    <Compile Include="ViewModels\Reflection\AddingReflectionVM.cs" />
-    <Compile Include="ViewModels\Reflection\BasicReflectionViewModel.cs" />
     <Compile Include="ViewModels\BasicViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\Reflection\ChangingReflectionVM.cs" />
-    <Compile Include="Controls\BasicInstanceControl.xaml.cs">
-      <DependentUpon>BasicInstanceControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Windows\BasicWindow.xaml.cs">
       <DependentUpon>BasicWindow.xaml</DependentUpon>
     </Compile>
@@ -184,10 +176,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\BasicInstanceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -221,20 +209,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{15FF4C7D-C387-4A66-8143-98BE37B67B68}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DbController\DbController.csproj">
       <Project>{7613081A-9F1F-45BF-94DE-9EC1DC7E2DF0}</Project>
       <Name>DbController</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WPFRelectionControls\WPFRelectionControls.csproj">
+      <Project>{c1b823b7-63d0-4c73-a6ca-2be96077f573}</Project>
+      <Name>WPFRelectionControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModels\Reflection\" />
     <Folder Include="Windows\WndController\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\packages\Fody.3.3.5\build\Fody.targets')" />

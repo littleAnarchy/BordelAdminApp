@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
-using AdminApp.Controls;
-using AdminApp.ViewModels.Reflection;
+using WPFRelectionControls.Controls;
+using WPFRelectionControls.Reflection;
 
 namespace AdminApp.Windows
 {
@@ -16,7 +16,7 @@ namespace AdminApp.Windows
         public BasicWindow(BasicReflectionViewModel vm)
         {
             _vm = vm;
-            var control = new BasicInstanceControl(vm, this);
+            var control = new BasicInstanceControl(this);
             FormsPanel = control.FormsPanel;
             DefaultControl.DataContext = control;
             InitializeComponent();

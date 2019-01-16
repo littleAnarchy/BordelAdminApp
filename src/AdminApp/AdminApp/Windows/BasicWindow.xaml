@@ -4,11 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:controls="clr-namespace:AdminApp.Controls"
+                 xmlns:controls2="clr-namespace:WPFRelectionControls.Controls;assembly=WPFRelectionControls"
                  mc:Ignorable="d"
         Title="BasicWindow" SizeToContent="Height" Width="400">
     <Grid>
-        <controls:BasicInstanceControl x:Name="DefaultControl"/>
+        <controls2:BasicInstanceControl x:Name="DefaultControl"/>
     </Grid>
 </mah:MetroWindow>
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
-using AdminApp.Common;
+using WPFRelectionControls.Common;
 
-namespace AdminApp.ViewModels.Reflection
+namespace WPFRelectionControls.Reflection
 {
     public class BasicReflectionViewModel : BasicViewModel
     {

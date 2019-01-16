@@ -1,4 +1,5 @@
 ﻿using DbController;
+using WPFRelectionControls.Interfaces;
 
 namespace AdminApp.Models
 {

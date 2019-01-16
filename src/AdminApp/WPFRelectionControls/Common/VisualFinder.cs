@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace AdminApp.Common
+namespace WPFRelectionControls.Common
 {
     public class VisualFinder
     {

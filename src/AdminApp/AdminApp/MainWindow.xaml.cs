@@ -13,8 +13,6 @@ namespace AdminApp
     public partial class MainWindow
     {
         private readonly MainViewModel _vm;
-        private readonly StackPanel _selectedItemPanel;
-        private readonly WindowsCreator _viewController;
         private readonly MsSqlContext _dataContext;
 
         public object SelectedItem { get; set; }
@@ -27,13 +25,11 @@ namespace AdminApp
             MainGrid.DataContext = _vm;
 
             _dataContext = new MsSqlContext();
-            _selectedItemPanel = InstanceControl.FormsPanel;
-            _viewController = new WindowsCreator(_dataContext);
         }
 
         private void Selector_OnSelected(object sender, RoutedEventArgs e)
         {
-            _viewController.UpdateChangingControl(_vm.SelectedObj, _selectedItemPanel);
+            InstanceControl.UpdateChangingControl(_vm.SelectedObj, _dataContext.GetListValuesByType);
         }
     }
 }
