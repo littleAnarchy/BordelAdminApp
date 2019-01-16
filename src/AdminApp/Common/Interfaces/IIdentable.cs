@@ -1,4 +1,4 @@
-﻿namespace AdminApp.Models
+﻿namespace Common.Interfaces
 {
     public interface IIdentable
     {

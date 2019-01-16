@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище BordelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BordelEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="Id" />
@@ -52,6 +52,7 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="20" />
           <Property Name="Age" Type="int" />
           <Property Name="PimpId" Type="int" />
+          <Property Name="PricePerHour" Type="decimal" Precision="12" Scale="4" />
         </EntityType>
         <Association Name="FK__Orders__Customer__7E37BEF6">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
@@ -113,7 +114,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище BordelModelContainer">
+        <EntityContainer Name="BordelEntitiesStoreContainer">
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pimps" EntityType="Self.Pimps" Schema="dbo" store:Type="Tables" />
@@ -144,7 +145,7 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BordelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BordelEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
@@ -161,7 +162,7 @@
           <Property Name="WhoreId" Type="Int32" />
           <Property Name="CustomerId" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK__Orders__Customer__7E37BEF6" FromRole="Orders" ToRole="Customers" />
-          <NavigationProperty Name="Whore" Relationship="Self.FK__Orders__WhoreId__7C4F7684" FromRole="Orders" ToRole="Whores" />
+          <NavigationProperty Name="Whore" Relationship="Self.FK__Orders__WhoreId__10566F31" FromRole="Orders" ToRole="Whores" />
         </EntityType>
         <EntityType Name="Pimp">
           <Key>
@@ -169,7 +170,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Whores" Relationship="Self.FK__Whores__PimpId__49C3F6B7" FromRole="Pimps" ToRole="Whores" />
+          <NavigationProperty Name="Whores" Relationship="Self.FK__Whores__PimpId__0F624AF8" FromRole="Pimps" ToRole="Whores" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -184,13 +185,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Age" Type="Int32" />
           <Property Name="PimpId" Type="Int32" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__WhoreId__7C4F7684" FromRole="Whores" ToRole="Orders" />
-          <NavigationProperty Name="Pimp" Relationship="Self.FK__Whores__PimpId__49C3F6B7" FromRole="Whores" ToRole="Pimps" />
+          <Property Name="PricePerHour" Type="Decimal" Precision="12" Scale="4" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__WhoreId__10566F31" FromRole="Whores" ToRole="Orders" />
+          <NavigationProperty Name="Pimp" Relationship="Self.FK__Whores__PimpId__0F624AF8" FromRole="Whores" ToRole="Pimps" />
           <NavigationProperty Name="Skills" Relationship="Self.Whore_Skill" FromRole="Whores" ToRole="Skills" />
         </EntityType>
         <Association Name="FK__Orders__Customer__7E37BEF6">
@@ -205,7 +207,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Orders__WhoreId__7C4F7684">
+        <Association Name="FK__Orders__WhoreId__10566F31">
           <End Role="Whores" Type="Self.Whore" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -217,7 +219,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Whores__PimpId__49C3F6B7">
+        <Association Name="FK__Whores__PimpId__0F624AF8">
           <End Role="Pimps" Type="Self.Pimp" Multiplicity="0..1" />
           <End Role="Whores" Type="Self.Whore" Multiplicity="*" />
           <ReferentialConstraint>
@@ -233,7 +235,7 @@
           <End Role="Skills" Type="Self.Skill" Multiplicity="*" />
           <End Role="Whores" Type="Self.Whore" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="publichouseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Pimps" EntityType="Self.Pimp" />
@@ -243,11 +245,11 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Orders__WhoreId__7C4F7684" Association="Self.FK__Orders__WhoreId__7C4F7684">
+          <AssociationSet Name="FK__Orders__WhoreId__10566F31" Association="Self.FK__Orders__WhoreId__10566F31">
             <End Role="Whores" EntitySet="Whores" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Whores__PimpId__49C3F6B7" Association="Self.FK__Whores__PimpId__49C3F6B7">
+          <AssociationSet Name="FK__Whores__PimpId__0F624AF8" Association="Self.FK__Whores__PimpId__0F624AF8">
             <End Role="Pimps" EntitySet="Pimps" />
             <End Role="Whores" EntitySet="Whores" />
           </AssociationSet>
@@ -261,9 +263,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище BordelModelContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="BordelEntitiesStoreContainer" CdmEntityContainer="publichouseEntities">
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="BordelModel.Customer">
+            <EntityTypeMapping TypeName="BordelEntities.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -271,7 +273,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="BordelModel.Order">
+            <EntityTypeMapping TypeName="BordelEntities.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="WhoreId" ColumnName="WhoreId" />
@@ -280,7 +282,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Pimps">
-            <EntityTypeMapping TypeName="BordelModel.Pimp">
+            <EntityTypeMapping TypeName="BordelEntities.Pimp">
               <MappingFragment StoreEntitySet="Pimps">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -288,7 +290,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Skills">
-            <EntityTypeMapping TypeName="BordelModel.Skill">
+            <EntityTypeMapping TypeName="BordelEntities.Skill">
               <MappingFragment StoreEntitySet="Skills">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -297,17 +299,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Whores">
-            <EntityTypeMapping TypeName="BordelModel.Whore">
+            <EntityTypeMapping TypeName="BordelEntities.Whore">
               <MappingFragment StoreEntitySet="Whores">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="PimpId" ColumnName="PimpId" />
+                <ScalarProperty Name="PricePerHour" ColumnName="PricePerHour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Whore_Skill" TypeName="BordelModel.Whore_Skill" StoreEntitySet="Whore_Skill">
+          <AssociationSetMapping Name="Whore_Skill" TypeName="BordelEntities.Whore_Skill" StoreEntitySet="Whore_Skill">
             <EndProperty Name="Skills">
               <ScalarProperty Name="Id" ColumnName="SkillId" />
             </EndProperty>
@@ -332,7 +335,7 @@
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

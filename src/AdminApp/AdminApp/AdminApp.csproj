@@ -157,7 +157,6 @@
     <Compile Include="Common\VisualFinder.cs" />
     <Compile Include="Controllers\WindowsCreator.cs" />
     <Compile Include="Models\IEntityKeepable.cs" />
-    <Compile Include="Models\IIdentable.cs" />
     <Compile Include="Models\PimpModel.cs" />
     <Compile Include="Models\WhoreModel.cs" />
     <Compile Include="ViewModels\Reflection\AddingReflectionVM.cs" />
@@ -165,6 +164,9 @@
     <Compile Include="ViewModels\BasicViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Reflection\ChangingReflectionVM.cs" />
+    <Compile Include="Controls\BasicInstanceControl.xaml.cs">
+      <DependentUpon>BasicInstanceControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\BasicWindow.xaml.cs">
       <DependentUpon>BasicWindow.xaml</DependentUpon>
     </Compile>
@@ -182,6 +184,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BasicInstanceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

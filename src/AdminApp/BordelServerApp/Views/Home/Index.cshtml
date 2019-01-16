@@ -1,32 +1,32 @@
 ﻿@{
-    Layout = null;
+	Layout = null;
 }
-
+ 
 <!DOCTYPE html>
+ 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Public house</title>
+	<meta name="viewport" content="width=device-width" />
+	<title>Public house</title>
 </head>
 <body>
-    <div>
-        <h3>
-            Whores:
-        </h3>
-        <table>
-            <tr>
-                <td><p>Имя</p></td>
-                <td><p>Возраст</p></td>
-            </tr>
-            @foreach (var b in ViewBag.Whores)
-            {
-                <tr>
-                    <td><p>@(b.FirstName + " " + b.LastName)</p></td>
-                    <td><p>@b.Age</p></td>
-                    <td><p><a href="/Home/Buy/@b.Id">Купить</a></p></td>
-                </tr>
-            }
-        </table>
-    </div>
+<div>
+	<h3>Whore list</h3>
+	<table>
+		<tr><td><p>Имя</p></td>
+			<td><p>Возраст</p></td>
+			<td><p>Цена</p></td><td></td>
+		</tr>
+		@foreach (var w in ViewBag.Whores)
+		{
+			<tr>
+				<td><p>@(w.FirstName + " " + w.LastName)</p></td>
+				<td><p>@w.Age</p></td>
+				<td><p>@w.PricePerHour</p></td>
+				<td><p><a href="/Home/Buy/@w.Id">Заказать</a></p></td>
+			</tr>
+		}
+	</table>
+</div>
 </body>
 </html>

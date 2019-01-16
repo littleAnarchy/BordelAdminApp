@@ -42,10 +42,9 @@ namespace DbController
         //getting table by reflection
         public List<object> GetListValuesByType(Type type)
         {
-            
             using (var ctxt = GetContext())
             {
-                return ctxt.Database.SqlQuery(type, "SELECT * FROM " + type.BaseType?.Name + "s").ToListAsync().Result;
+                return ctxt.Database.SqlQuery(type, "SELECT * FROM " + type.Name + "s").ToListAsync().Result;
             }
         }
     }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Controls;
+using AdminApp.Controls;
 using AdminApp.Models;
 using AdminApp.ViewModels.Reflection;
 using AdminApp.Windows;
 using Common;
+using Common.Interfaces;
 using DbController;
 
 namespace AdminApp.Controllers
@@ -32,7 +34,7 @@ namespace AdminApp.Controllers
                     view.Children.Add(new TextBox{Name = property.Name});
                 else
                 {
-                    var items = _context.GetListValuesByType(Type.GetType($"AdminApp.Models.{property.PropertyType.FullName}Model"));
+                    var items = _context.GetListValuesByType(property.PropertyType);
                     view.Children.Add(new ComboBox{ Name = property.Name, ItemsSource = items });
                 }
             }
@@ -43,33 +45,43 @@ namespace AdminApp.Controllers
         //Todo: refactor this methods
         public BasicWindow CreateChangingWindow<T>(object entity) where T : class
         {
-            var properties = typeof(T).GetProperties()
-                .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
             var vm = new AddingReflectionVM(typeof(T));
             var wnd = new BasicWindow(vm);
             var view = wnd.FormsPanel;
+            UpdateChangingControl(entity, view);
+            return wnd;
+        }
+
+        public void UpdateChangingControl(object entity, StackPanel view)
+        {
+            view.Children.Clear();
+            var properties = entity.GetType().GetProperties()
+                .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
+
             foreach (var property in properties)
             {
                 view.Children.Add(new Label { Content = property.Name });
                 if (!property.GetGetMethod().IsVirtual)
-                    view.Children.Add(new TextBox {
+                {
+                    var text = entity.GetType().GetProperty(property.Name)?.GetValue(entity, null);
+                    view.Children.Add(new TextBox
+                    {
                         Name = property.Name,
-                        Text = entity.GetType().GetProperty(property.Name)?.GetValue(entity, null).ToString() ?? throw new InvalidOperationException()
+                        Text = text?.ToString() ?? ""
                     });
+                }
                 else
                 {
-                    var items = _context.GetListValuesByType(Type.GetType($"AdminApp.Models.{property.PropertyType.FullName}Model"));
+                    var items = _context.GetListValuesByType(property.PropertyType);
                     var selectedItem = property.GetValue(entity, null);
                     view.Children.Add(new ComboBox
                     {
                         Name = property.Name,
                         ItemsSource = items,
-                        SelectedIndex = items.FindIndex(x => selectedItem != null && ((IIdentable) x).Id == (int?) selectedItem.GetType().GetProperty("Id")?.GetValue(selectedItem))
+                        SelectedIndex = items.FindIndex(x => selectedItem != null && ((IIdentable)x).Id == (int?)selectedItem.GetType().GetProperty("Id")?.GetValue(selectedItem))
                     });
                 }
             }
-
-            return wnd;
         }
     }
 }

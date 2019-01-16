@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using Common.Interfaces;
+using DbController;
 
 namespace AdminApp.Models
 {
-    public sealed class PimpModel : Pimp, IEntityKeepable, IIdentable
+    public sealed class PimpModel : Pimp, IEntityKeepable
     {
         public object Entity { get; set; }
         public string WhoreList { get; set; }
@@ -24,11 +26,6 @@ namespace AdminApp.Models
         public PimpModel()
         {
             Entity = this;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }
