@@ -32,7 +32,7 @@ namespace AdminApp.ViewModels
         {
             _windowsCreator = new WindowsCreator(_dbContext);
 
-            OnAddWhoreBtnCmd = new CommandHandler(OnAddWhoreBtn, true);
+            OnAddWhoreBtnCmd = new CommandHandler(OnAddWhore, true);
             OnChangeItemCmd = new CommandHandler(OnChangeItem, true);
 
             UpdateView();
@@ -54,9 +54,9 @@ namespace AdminApp.ViewModels
             }, null);
         }
 
-        public void OnAddWhoreBtn()
+        public void OnAddWhore()
         {
-            var wnd = _windowsCreator.CreateAddingWindow<Whore>();
+            var wnd = _windowsCreator.CreateReflectionWindow(new Whore());
 
             if (wnd.ShowDialog() == true)
             {
@@ -73,10 +73,10 @@ namespace AdminApp.ViewModels
             switch (SelectedObj)
             {
                 case Whore _:
-                    wnd = _windowsCreator.CreateChangingWindow<Whore>(SelectedObj);
+                    wnd = _windowsCreator.CreateReflectionWindow(SelectedObj);
                     break;
                 case Pimp _:
-                    wnd = _windowsCreator.CreateChangingWindow<Pimp>(SelectedObj);
+                    wnd = _windowsCreator.CreateReflectionWindow(SelectedObj);
                     break;
                 default:
                     return;

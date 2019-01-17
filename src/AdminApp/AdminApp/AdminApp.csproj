@@ -223,10 +223,7 @@
       <Name>WPFRelectionControls</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\Reflection\" />
-    <Folder Include="Windows\WndController\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>

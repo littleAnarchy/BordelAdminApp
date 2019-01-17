@@ -75,7 +75,9 @@
                 <Button Content="Add Whore" 
                         Command="{Binding OnAddWhoreBtnCmd}" 
                         HorizontalAlignment="Right"/>
-                <controls1:BasicInstanceControl Btn2Content="Change" x:Name="InstanceControl"/>
+                <controls1:BasicInstanceControl Btn2Content="Change" 
+                                                x:Name="InstanceControl" 
+                                                IsAsync="True"/>
             </StackPanel>
         </Grid>
     </Grid>

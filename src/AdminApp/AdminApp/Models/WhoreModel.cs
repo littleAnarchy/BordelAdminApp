@@ -15,6 +15,7 @@ namespace AdminApp.Models
             FirstName = entity.FirstName;
             LastName = entity.LastName;
             Age = entity.Age;
+            PricePerHour = entity.PricePerHour;
             Pimp = entity.Pimp;
         }
 

@@ -10,10 +10,11 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <StackPanel x:FieldModifier="public" Name="FormsPanel" Grid.Row="0"/>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Cancel" Click="ButtonBase_OnClick"/>
-            <Button Name="Btn2" Click="Btn2_OnClick"/>
+            <Button Name="Btn2" Click="Btn2_OnClick" IsEnabled="False"/>
         </StackPanel>
     </Grid>
 </UserControl>

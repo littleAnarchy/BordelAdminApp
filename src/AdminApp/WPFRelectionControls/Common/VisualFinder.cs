@@ -8,20 +8,18 @@ namespace WPFRelectionControls.Common
     {
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
         {
-            if (depObj != null)
+            if (depObj == null) yield break;
+            for (var i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
             {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                var child = VisualTreeHelper.GetChild(depObj, i);
+                if (child is T variable)
                 {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        yield return (T)child;
-                    }
+                    yield return variable;
+                }
 
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
+                foreach (var childOfChild in FindVisualChildren<T>(child))
+                {
+                    yield return childOfChild;
                 }
             }
         }

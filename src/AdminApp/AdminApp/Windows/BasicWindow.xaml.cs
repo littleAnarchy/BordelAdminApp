@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-using WPFRelectionControls.Controls;
-using WPFRelectionControls.Reflection;
+﻿using WPFRelectionControls.Controls;
 
 namespace AdminApp.Windows
 {
@@ -9,23 +7,19 @@ namespace AdminApp.Windows
     /// </summary>
     public partial class BasicWindow
     {
-        private readonly BasicReflectionViewModel _vm;
+        private readonly BasicInstanceControl _control;
 
-        public StackPanel FormsPanel { get; }
-
-        public BasicWindow(BasicReflectionViewModel vm)
+        public BasicWindow(BasicInstanceControl control)
         {
-            _vm = vm;
-            var control = new BasicInstanceControl(this);
-            FormsPanel = control.FormsPanel;
-            DefaultControl.DataContext = control;
+            _control = control;
             InitializeComponent();
+            MainGrid.Children.Add(control);
             BasicWindowCreator.UpdateMetroWindow(this);
         }
 
         public object GetEntity()
         {
-            return _vm.Entity;
+            return _control.Entity;
         }
     }
 }

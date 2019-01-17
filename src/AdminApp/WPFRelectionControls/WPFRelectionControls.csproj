@@ -70,10 +70,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Reflection\AddingReflectionVM.cs" />
-    <Compile Include="Reflection\BasicReflectionViewModel.cs" />
-    <Compile Include="Reflection\ChangingReflectionVM.cs" />
-    <Compile Include="Reflection\ReflectionToDbCommand.cs" />
     <Compile Include="WorkTypes.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

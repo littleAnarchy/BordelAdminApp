@@ -7,8 +7,8 @@
                  xmlns:controls2="clr-namespace:WPFRelectionControls.Controls;assembly=WPFRelectionControls"
                  mc:Ignorable="d"
         Title="BasicWindow" SizeToContent="Height" Width="400">
-    <Grid>
-        <controls2:BasicInstanceControl x:Name="DefaultControl"/>
+    <Grid Name="MainGrid">
+        
     </Grid>
 </mah:MetroWindow>
 

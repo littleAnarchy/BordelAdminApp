@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using WPFRelectionControls.Common;
 using WPFRelectionControls.Interfaces;
 
@@ -17,9 +19,19 @@ namespace WPFRelectionControls.Controls
     {
         public Window Owner { get; set; }
         public Type EntityType { get; set; }
-        public object Entity { get; set; }
-        public Action Btn2Cmd { get; set; }
-        public WorkTypes WorkType { get; set; }
+        private object _entity;
+        public object Entity { get => _entity;
+            set
+            {
+                _entity = value;
+                if (_entity != null)
+                    Btn2.IsEnabled = true;
+            }
+        }
+        public Action<object> Btn2Cmd { get; set; }
+        public event EventHandler OnBtn2Click;
+
+        public bool IsAsync { get; set; }
 
         #region CustomProperties
 
@@ -31,8 +43,11 @@ namespace WPFRelectionControls.Controls
 
         #endregion
 
-        public BasicInstanceControl(Window owner)
+        public BasicInstanceControl(Window owner, Action<object> btn2Cmd)
         {
+            Owner = owner;
+            Btn2Cmd = btn2Cmd;
+
             InitializeComponent();
         }
 
@@ -41,20 +56,40 @@ namespace WPFRelectionControls.Controls
             InitializeComponent();
         }
 
-        private void Btn2_OnClick(object sender, RoutedEventArgs e)
+        private async void Btn2_OnClick(object sender, RoutedEventArgs e)
         {
-            Btn2Cmd.Invoke();
+            FormOutEntity();
+
+            if (IsAsync)
+            {
+
+                var task = new Task(() =>
+                {
+                    Btn2Cmd.Invoke(Entity);
+
+                });
+                task.Start();
+                await task;
+            }
+            else
+            {
+                Btn2Cmd.Invoke(Entity);
+            }
+            OnBtn2Click?.Invoke(this, null);
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Owner?.Close();
         }
 
 
-        public void UpdateChangingControl(object entity, Func<Type, List<object>> dataGrabber)
+
+        public void UpdateControl(object entity, Func<Type, List<object>> dataGrabber)
         {
+            if (entity == null) return;
             FormsPanel.Children.Clear();
+            Entity = entity;
             var properties = entity.GetType().GetProperties()
                 .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
 
@@ -64,36 +99,40 @@ namespace WPFRelectionControls.Controls
                 if (!property.GetGetMethod().IsVirtual)
                 {
                     var text = entity.GetType().GetProperty(property.Name)?.GetValue(entity, null);
-                    FormsPanel.Children.Add(new TextBox
+                    var textBox = new TextBox
                     {
                         Name = property.Name,
                         Text = text?.ToString() ?? ""
-                    });
+                    };
+                    FormsPanel.Children.Add(textBox);
                 }
                 else
                 {
                     var items = dataGrabber.Invoke(property.PropertyType);
                     var selectedItem = property.GetValue(entity, null);
-                    FormsPanel.Children.Add(new ComboBox
+                    var comboBox = new ComboBox
                     {
                         Name = property.Name,
                         ItemsSource = items,
-                        SelectedIndex = items.FindIndex(x => selectedItem != null && ((IIdentable)x).Id == (int?)selectedItem.GetType().GetProperty("Id")?.GetValue(selectedItem))
-                    });
+                        SelectedIndex = items.FindIndex(x =>
+                            selectedItem != null && ((IIdentable) x).Id ==
+                            (int?) selectedItem.GetType().GetProperty("Id")?.GetValue(selectedItem))
+                    };
+                    FormsPanel.Children.Add(comboBox);
                 }
             }
         }
 
-        public void AddEntitytoDb()
+        public object FormOutEntity()
         {
-            Entity = Activator.CreateInstance(EntityType);
             var properties = Entity.GetType().GetProperties()
-                .Where(prop => Attribute.IsDefined((MemberInfo)prop, typeof(DynamicExtractable)));
+                .Where(prop => Attribute.IsDefined(prop, typeof(DynamicExtractable)));
 
             var writedForms = new Dictionary<string, object>();
 
             //Adding content from text boxes
-            foreach (var tb in Enumerable.Where<TextBox>(VisualFinder.FindVisualChildren<TextBox>(this), t => t.Name != null))
+
+            foreach (var tb in VisualFinder.FindVisualChildren<TextBox>(this).Where(t => t.Name != null))
             {
                 var oProp = Entity.GetType().GetProperty(tb.Name);
                 if (oProp == null) continue;
@@ -105,16 +144,17 @@ namespace WPFRelectionControls.Controls
                     tProp = new NullableConverter(oProp.PropertyType).UnderlyingType;
                 }
 
-                writedForms.Add(tb.Name, Convert.ChangeType(tb.Text, tProp));
+                writedForms.Add(tb.Name,
+                    tb.Text != "" ? Convert.ChangeType(tb.Text, tProp) : Activator.CreateInstance(tProp));
             }
 
             //Adding content from Combo boxes
-            foreach (var tb in Enumerable.Where<ComboBox>(VisualFinder.FindVisualChildren<ComboBox>(this), t => t.Name != null))
+            foreach (var tb in VisualFinder.FindVisualChildren<ComboBox>(this).Where(t => t.Name != null))
             {
                 var oProp = Entity.GetType().GetProperty(tb.Name);
                 if (oProp == null) continue;
 
-                writedForms.Add(tb.Name, ((IEntityKeepable)tb.SelectedItem).Entity);
+                writedForms.Add(tb.Name, tb.SelectedItem);
             }
 
             //Form object with grabbed parameters
@@ -125,7 +165,7 @@ namespace WPFRelectionControls.Controls
                     Type.DefaultBinder, Entity, new[] { writedForms[property.Name] });
             }
 
-            Owner.DialogResult = true;
+            return Entity;
         }
     }
 }
