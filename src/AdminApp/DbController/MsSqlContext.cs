@@ -30,6 +30,22 @@ namespace DbController
             }
         }
 
+        public Pimp GetPimpByWhore(int whoreId)
+        {
+            using (var ctxt = GetContext())
+            {
+                return ctxt.Whores.Include(w => w.Pimp).FirstOrDefault(w => w.Id == whoreId)?.Pimp;
+            }
+        }
+
+        public int? GetCustomerIdByName(string name)
+        {
+            using (var ctxt = GetContext())
+            {
+                return ctxt.Customers.FirstOrDefault(c => c.Name == name)?.Id;
+            }
+        }
+
         #endregion
 
         #region AddingMethods
@@ -45,6 +61,23 @@ namespace DbController
             }
         }
 
+        public void AddOrder(Order order)
+        {
+            using (var ctxt = GetContext())
+            {
+                ctxt.Orders.Add(order);
+                ctxt.SaveChanges();
+            }
+        }
+
+        public void AddCustomer(string name)
+        {
+            using (var ctxt = GetContext())
+            {
+                ctxt.Customers.Add(new Customer {Name = name});
+                ctxt.SaveChanges();
+            }
+        }
         #endregion
 
         #region ChangingMethods
@@ -67,6 +100,7 @@ namespace DbController
                 ctxt.SaveChanges();
             }
         }
+
 
         #endregion
 
